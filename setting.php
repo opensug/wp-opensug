@@ -29,26 +29,22 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
 $cfg = array();
 if( get_option( openSug_SYMBOL ) ) $cfg = unserialize( get_option( openSug_SYMBOL ) );
-//wp_enqueue_script('jquery');
 ?>
 <div class="wrap">
-	<h1>openSug.js <?php esc_html_e( 'Settings' );?></h1>
+	<h1>openSug.js <?php esc_html_e( 'Settings', 'opensug' );?></h1>
 	<p>
 		<?php esc_html_e( 'Simply reference a section of JS to get a search box with “search box prompts” to make your search easier!', 'opensug' );?><br />
 		<?php esc_html_e( 'Default use libs sources', 'opensug' );?>: <a target="_blank" href="https://opensug.github.io/js/opensug.js">https://github.com/</a>, 
 		<?php esc_html_e( 'Porject home', 'opensug' );?>: <a href="https://www.opensug.eu.org/" target="_blank">https://www.opensug.eu.org/</a>
 	</p>
 	<form action="" method="post" id="ConfigFormSimilar">
-	<style type="text/css">
-	/*.form-table th{text-align: right;}*/
-	</style>
 	<table class="form-table">
 	<tbody>
 		<tr>
 			<th scope="row">
 				<label for="ipt"><?php esc_html_e( 'Bind id with input', 'opensug' );?></label>
 			</th><td>
-				<input type="text" class="regular-text" autocomplete="off" spellcheck="false" x-webkit-speech="false" id="ipt" name="ipt" value="<?php esc_html_e(openSug_value($cfg, 'id', 's'));?>" required="required" placeholder="wp-block-search__input-1" />
+				<input type="text" class="regular-text" autocomplete="off" spellcheck="false" x-webkit-speech="false" id="ipt" name="ipt" value="<?php esc_html_e(openSug_value($cfg, 'id'));?>" required="required" placeholder="wp-block-search__input-1" />
 			</td>
 		</tr>
 		<tr>
@@ -59,7 +55,7 @@ if( get_option( openSug_SYMBOL ) ) $cfg = unserialize( get_option( openSug_SYMBO
 				$source = openSug_value($cfg, 'source', '');
 				?>
 				<select id="source" name="source" style="width:120px;color:blue;">
-					<option <?php echo $source === '' || preg_match('/^(https|http):\/\//', $source) ? 'selected="selected" ' : '';?>value="<?php echo openSug_SUGURL;?>"><?php esc_html_e( '* On self site', 'opensug' );?></option>
+					<option <?php echo $source === '' || preg_match('/^(https|http):\/\//', $source) ? 'selected="selected" ' : '';?>value="<?php echo admin_url("admin-ajax.php") . "?action=openSug&kw=";?>"><?php esc_html_e( '* On self site', 'opensug' );?></option>
 					<option <?php echo $source === 'baidu'	? 'selected="selected" ' : '';?>value="baidu"><?php		esc_html_e( 'Baidu.com',	'opensug' );?></option>
 					<option <?php echo $source === 'google'	? 'selected="selected" ' : '';?>value="google"><?php 	esc_html_e( 'Google.com',	'opensug' );?></option>
 					<option <?php echo $source === 'haoso'	? 'selected="selected" ' : '';?>value="haoso"><?php		esc_html_e( 'So.com',		'opensug' );?></option>
@@ -85,7 +81,7 @@ if( get_option( openSug_SYMBOL ) ) $cfg = unserialize( get_option( openSug_SYMBO
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="action"><?php esc_html_e( 'sugSubmit', 'opensug' );?></label>
+				<label for="action"><?php esc_html_e( 'sugSubmit', openSug_DIRNAME );?></label>
 			</th><td>
 				<select name="action" id="action">
 					<option <?php if( openSug_value( $cfg, 'sugSubmit', '1' ) != '0') echo 'selected="selected"';?> value="1"><?php esc_html_e( 'Selected submission(default)',	'opensug' );?></option>

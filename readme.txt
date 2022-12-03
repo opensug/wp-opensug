@@ -14,5 +14,9 @@ It provides suggestions for visitors to search, making users' search convenient 
 
 == Changelog ==
 
+= 1.0.1 =
+Optimize code.
+Added Chinese language support.
+
 = 1.0.0 =
 Initial release.
