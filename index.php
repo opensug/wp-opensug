@@ -14,8 +14,9 @@ define( "openSug_SYMBOL",	"opensug_cfg" );
 wp_enqueue_script( "jquery" );
 
 if( function_exists("is_admin") ) {
-	define("openSug_DIRNAME", plugin_basename( plugin_dir_path( __FILE__ ) ) );
-	define("openSug_SET_PAGE", admin_url( "options-general.php?page=". openSug_DIRNAME ."%2findex.php" ) );
+	define( "openSug_DIRNAME",	plugin_basename( plugin_dir_path( __FILE__ ) ) );
+	define( "openSug_SET_PAGE",	admin_url( "options-general.php?page=". openSug_DIRNAME ."%2findex.php" ) );
+	define( "openSug_AJAX",		preg_replace( "/^(http|https):\/\//i", "//", admin_url("admin-ajax.php") ) );
 
 	if( !is_admin() ) wp_enqueue_script( openSug_DIRNAME, "https://opensug.github.io/js/opensug.js", array(), false, true );
 
@@ -45,13 +46,13 @@ if( function_exists("is_admin") ) {
 	function openSug_cfg() {
 		$cfg = array(
 			"id"			=> "wp-block-search__input-1",
-			"source"		=> admin_url("admin-ajax.php") . "?action=openSug&kw=",
+			"source"		=> openSug_AJAX . "?action=openSug&kw=",
 			"sugSubmit"		=> "1",
 			"padding"		=> "",
 			"XOffset"		=> "",
 			"YOffset"		=> "",
 			"radius"		=> "4px",
-			"shadow"		=> "0 16px 10px rgb(0 0 0 / 50%)",
+			"shadow"		=> "0 16px 10px #00000080",
 			"fontColor"		=> "#ff0000",
 			"bgcolor"		=> "#ffffff",
 			"bgcolorHI"		=> "#4d90fe",
@@ -78,7 +79,7 @@ if( function_exists("is_admin") ) {
 		$cfg["sugSubmit"] = $cfg["sugSubmit"] === "0" ? "false" : "true";
 
 		if( isset($cfg["id"]) && strlen($cfg["id"]) > 0 ) {
-			echo "<script type='text/javascript' language='javascript'>'use strict';/*<![CDATA[*/var \$osId=document.getElementById('{$cfg['id']}');if(\$osId!=null&&((\$osId.getAttribute('type')||\"\").toLocaleLowerCase()==='search'||(\$osId.getAttribute('type')||\"\").toLocaleLowerCase()==='text')&&\"function\" === typeof(window.openSug))window.openSug('{$cfg['id']}',{'source':'{$cfg['source']}','sugSubmit':{$cfg['sugSubmit']},'padding':'{$cfg['padding']}','XOffset':'{$cfg['XOffset']}','YOffset':'{$cfg['YOffset']}','radius':'{$cfg['radius']}','shadow':'{$cfg['shadow']}','fontColor':'{$cfg['fontColor']}','fontColorHI':'{$cfg['fontColorHI']}','bgcolor':'{$cfg['bgcolor']}','bgcolorHI':'{$cfg['bgcolorHI']}','borderColor':'{$cfg['borderColor']}','width':'{$cfg['width']}','fontSize':'{$cfg['fontSize']}','fontFamily':'{$cfg['fontFamily']}'},function(cb){{$cfg['callback']}});/*]]>*/</script>";
+			echo "<script type='text/javascript' language='javascript' id='config_sug'>'use strict';(function(){\r\n    var ipt = document['getElementById']('{$cfg["id"]}');\r\n	if( ipt != null && (\r\n		(ipt['getAttribute']('type') || '')['toLocaleLowerCase']() === 'search' || \r\n		(ipt['getAttribute']('type') || '')['toLocaleLowerCase']() === 'text') && \r\n	   	'function' === typeof( window['openSug'] )\r\n	) window['openSug']( '{$cfg["id"]}', {\r\n		source		: '{$cfg["source"]}',\r\n		sugSubmit	: {$cfg["sugSubmit"]},\r\n		padding		: '{$cfg["padding"]}',\r\n		XOffset		: '{$cfg["XOffset"]}',\r\n		YOffset		: '{$cfg["YOffset"]}',\r\n		radius		: '{$cfg["radius"]}',\r\n		shadow		: '{$cfg["shadow"]}',\r\n		fontColor	: '{$cfg["fontColor"]}',\r\n		fontColorHI	: '{$cfg["fontColorHI"]}',\r\n		bgcolor		: '{$cfg["bgcolor"]}',\r\n		bgcolorHI	: '{$cfg["bgcolorHI"]}',\r\n		borderColor	: '{$cfg["borderColor"]}',\r\n		width		: '{$cfg["width"]}',\r\n		fontSize	: '{$cfg["fontSize"]}',\r\n		fontFamily	: '{$cfg["fontFamily"]}'\r\n	},function(cb){\r\n			{$cfg["callback"]}\r\n	});\r\n}(this));</script>";
 		}
 	}
 
@@ -90,8 +91,8 @@ if( function_exists("is_admin") ) {
 		header("Last-Modified: ". gmdate("D, d M Y 01:01:01", (time()-86400)) ." GMT");
 		
 		global $wpdb;
-		$out = "";
-		$tmp = array();
+		$out		= "";
+		$keys		= array();
 		$keyword	= sanitize_text_field(isset ($_GET["kw"]) && strlen ($_GET["kw"]) > 0 ? addslashes($_GET["kw"]) : "");
 		$callback	= sanitize_text_field(isset( $_GET["cb"] ) && strlen( $_GET["cb"] ) > 0 ? $_GET["cb"] : "");
 
@@ -102,19 +103,22 @@ if( function_exists("is_admin") ) {
 
 			if ( $len > 0 ) {
 				foreach($res as $v){
-					$contents = "{$v['title']}{$v['post_content']}";
+					$contents = "{$v["title"]}{$v["post_content"]}";
 					$contents = strip_tags( $contents );
 					$contents = preg_replace( "/\s/", "", $contents );
 
 					if ( strlen( $contents ) > 0 ) {
-						preg_match_all( "/(\w{0,3}\W{0,3}){$keyword}(\w{0,3}\W{0,3})/is", $contents, $matches );
-						$tmp = array_merge( $tmp, $matches[0] );
-						$tmp = array_unique( $tmp );
+						preg_match_all( "/(\w{0,5}\W{0,5}){$keyword}(\w{0,5}\W{0,5})/uis", $contents, $matches );
+						$keys = array_merge( $keys, $matches[0] );
+						$keys = array_unique( $keys );
 					}
 				}
 
-				for ( $i = 0, $len = count( $tmp ); $i < ( $len > 10 ? 10 : $len ); $i++ ) {
-					if ( strlen( $tmp[$i] ) > 0 ) $out .= "\"{$tmp[$i]}\",";
+				for ( $i = 0, $len = count( $keys ); $i < ( $len > 10 ? 10 : $len ); $i++ ) {
+					if ( strlen( $keys[$i] ) > 0 ){
+						$key	= addslashes($keys[$i]);
+						$out	.= "\"{$key}\",";
+					}
 				}
 
 				$out = rtrim( $out, "," );
