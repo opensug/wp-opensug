@@ -1,0 +1,232 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: openSug\n"
+"POT-Creation-Date: 2022-12-03 13:07+0800\n"
+"PO-Revision-Date: 2022-12-03 13:54+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: index.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: index.php:32 setting.php:35
+msgid "Settings"
+msgstr "设置"
+
+#: index.php:39
+msgid "openSug.js config"
+msgstr "openSug.js 配置"
+
+#: index.php:39
+msgid "openSug.js"
+msgstr ""
+
+#: setting.php:27
+msgid "Saved."
+msgstr "已保存."
+
+#: setting.php:37
+msgid ""
+"Simply reference a section of JS to get a search box with “search box "
+"prompts” to make your search easier!"
+msgstr ""
+"只需引用JS的一部分，即可获得带有“搜索框提示”的搜索框，从而使您的搜索更容易!"
+
+#: setting.php:38
+msgid "Default use libs sources"
+msgstr "引用脚本库"
+
+#: setting.php:39
+msgid "Porject home"
+msgstr "项目主页"
+
+#: setting.php:49
+msgid "Bind id with input"
+msgstr "输入框ID"
+
+#: setting.php:56
+msgid "Result source"
+msgstr "结果源"
+
+#: setting.php:62
+msgid "* On self site"
+msgstr "搜本站"
+
+#: setting.php:63
+msgid "Baidu.com"
+msgstr "百度"
+
+#: setting.php:64
+msgid "Google.com"
+msgstr "谷歌"
+
+#: setting.php:65
+msgid "So.com"
+msgstr "好搜"
+
+#: setting.php:66
+msgid "Kugou.com"
+msgstr "酷狗"
+
+#: setting.php:67
+msgid "Yahoo.com"
+msgstr "雅虎"
+
+#: setting.php:68
+msgid "Yandex.ru"
+msgstr ""
+
+#: setting.php:69
+msgid "Youku.com"
+msgstr "优酷"
+
+#: setting.php:70
+msgid "Taobao.com"
+msgstr "淘宝"
+
+#: setting.php:71
+msgid "Attayo.jp"
+msgstr ""
+
+#: setting.php:72
+msgid "Mgtv.com"
+msgstr "芒果电视"
+
+#: setting.php:73
+msgid "Sm.cn"
+msgstr "神马"
+
+#: setting.php:74
+msgid "Weibo.com"
+msgstr "微博"
+
+#: setting.php:75
+msgid "Rambler.ru"
+msgstr ""
+
+#: setting.php:76
+msgid "Zongheng.com"
+msgstr "小说"
+
+#: setting.php:77
+msgid "Software"
+msgstr "软件"
+
+#: setting.php:78
+msgid "Naver.com"
+msgstr ""
+
+#: setting.php:79
+msgid "Car[sina]"
+msgstr "新浪汽车"
+
+#: setting.php:80
+msgid "car[netease]"
+msgstr "网易汽车"
+
+#: setting.php:81
+msgid "Qunar.com"
+msgstr "地点"
+
+#: setting.php:82
+msgid "Lagou.com"
+msgstr "职位"
+
+#: setting.php:88
+msgid "sugSubmit"
+msgstr "默认动作"
+
+#: setting.php:91
+msgid "Selected submission(default)"
+msgstr "自动提交(默认)"
+
+#: setting.php:92
+msgid "Manual submission"
+msgstr "手动提交"
+
+#: setting.php:98
+msgid "X-Offset"
+msgstr "横向偏移"
+
+#: setting.php:105
+msgid "Y-Offset"
+msgstr "纵向偏移"
+
+#: setting.php:112
+msgid "Width"
+msgstr "宽度"
+
+#: setting.php:119
+msgid "font Color"
+msgstr "字体颜色"
+
+#: setting.php:126
+msgid "font Color HI"
+msgstr "字体颜色(高亮)"
+
+#: setting.php:133
+msgid "background Color"
+msgstr "背景颜色"
+
+#: setting.php:140
+msgid "background Color HI"
+msgstr "背景颜色(高亮)"
+
+#: setting.php:147
+msgid "font Size"
+msgstr "字体大小"
+
+#: setting.php:154
+msgid "font Family"
+msgstr "字体"
+
+#: setting.php:161
+msgid "border Color"
+msgstr "边框颜色"
+
+#: setting.php:168
+msgid "Padding"
+msgstr "内边距"
+
+#: setting.php:175
+msgid "Radius"
+msgstr "圆角边框"
+
+#: setting.php:182
+msgid "Shadow"
+msgstr "边框阴影"
+
+#: setting.php:189
+msgid "Callback"
+msgstr "回调函数"
+
+#: setting.php:196
+msgid "Save"
+msgstr "保存"
+
+#. Plugin Name of the plugin/theme
+#. Author of the plugin/theme
+msgid "openSug"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"It provides suggestions for visitors to search, making users' search "
+"convenient and fast."
+msgstr "为访问者提供搜索建议，使用户的搜索方便快捷."
+
+#. Author URI of the plugin/theme
+msgid "https://www.opensug.eu.org/"
+msgstr ""
